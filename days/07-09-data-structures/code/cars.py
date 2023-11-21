@@ -13,8 +13,7 @@ CarsType = Dict[str, List[str]]
 
 def main():
     print(get_all_jeeps(cars))
-
-
+    print(get_first_model_each_manufacturer(cars))
 
 
 def get_all_jeeps(cars: CarsType = cars) -> str:
@@ -32,7 +31,13 @@ def get_first_model_each_manufacturer(cars: CarsType = cars) -> List[str]:
     manufacturer. Return the matching models in a list leaving the original
     ordering intact.
     """
-    pass
+    first_model = []
+    keys = cars.keys()
+    for key in keys:
+        first_model.append(cars[key][0])
+
+    return first_model
+
 
 
 def get_all_matching_models(
