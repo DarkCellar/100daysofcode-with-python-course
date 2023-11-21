@@ -14,6 +14,8 @@ CarsType = Dict[str, List[str]]
 def main():
     print(get_all_jeeps(cars))
     print(get_first_model_each_manufacturer(cars))
+    print(get_all_matching_models(cars, grep="CO"))
+    print(sort_car_models(cars))
 
 
 def get_all_jeeps(cars: CarsType = cars) -> str:
@@ -39,16 +41,17 @@ def get_first_model_each_manufacturer(cars: CarsType = cars) -> List[str]:
     return first_model
 
 
-
-def get_all_matching_models(
-    cars: CarsType = cars, grep: str = DEFAULT_SEARCH
-) -> List[str]:
+def get_all_matching_models(cars: CarsType = cars, grep: str = DEFAULT_SEARCH) -> List[str]:
     """
     Return a list of all models containing the case insensitive
     'grep' string which defaults to DEFAULT_SEARCH ('trail').
     Sort the resulting sequence alphabetically
     """
-    pass
+    trail_models = []
+    for key in cars.keys():
+        trail_models.extend(list(filter(lambda x: grep.lower() in x.lower(), cars[key])))
+    trail_models.sort()
+    return trail_models
 
 
 def sort_car_models(cars: CarsType = cars) -> CarsType:
@@ -56,7 +59,10 @@ def sort_car_models(cars: CarsType = cars) -> CarsType:
     Loop through the cars dict returning a new dict with the
     same keys and the values sorted alphabetically.
     """
-    pass
+    for key in cars.keys():
+        cars[key].sort()
+        cars[key] = cars[key]
+    return cars
 
 
 if __name__ == "__main__":
